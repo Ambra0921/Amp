@@ -1,6 +1,6 @@
 package com.amp.user.service;
 
-import com.amp.user.model.UserInfo;
+import com.amp.user.model.bo.UserInfo;
 
 /**
  *

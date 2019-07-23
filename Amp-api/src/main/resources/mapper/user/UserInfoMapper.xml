@@ -2,14 +2,43 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.amp.user.dao.UserDao">
 
+    <resultMap id="BaseResultMap" type="com.amp.user.model.bo.UserInfo">
+        <id column="id" jdbcType="BIGINT" property="id" />
+        <result column="user_name" jdbcType="VARCHAR" property="userName" />
+        <result column="password" jdbcType="VARCHAR" property="password" />
+        <result column="creator" jdbcType="BIGINT" property="creator" />
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    </resultMap>
+
     <sql id="baseColumn">
       user_name,password,creator,create_time
     </sql>
 
-    <insert id="saveUserInfo" parameterType="com.amp.user.model.UserInfo" keyProperty="id" useGeneratedKeys="true" >
+
+    <select id="getUserInfo" parameterType="com.amp.user.model.bo.UserInf" resultMap="BaseResultMap">
+        SELECT
+        <include refid="BaseColumnList" />
+        FROM user
+        <where>
+            <if test="userName != null">
+                AND user_name = #{userName,jdbcType=VARCHAR}
+            </if>
+            <if test="password != null">
+                AND password = #{password,jdbcType=VARCHAR}
+            </if>
+            <if test="id != null">
+                AND id = #{name,jdbcType=BIGINT}
+            </if>
+        </where>
+    </select>
+
+
+    <insert id="saveUserInfo" parameterType="com.amp.user.model.bo.UserInfo" keyProperty="id" useGeneratedKeys="true" >
         INSERT  INTO t_user(
         <include refid="baseColumn"/>
         )
-        values (#{userName,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},#{creator,jdbcType=BIGINT},now())
+        values (#{userName,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},#{creator,jdbcType=BIGINT},#{createTime,jdbcType=datetime})
     </insert>
+
+
 </mapper>

@@ -1,4 +1,4 @@
-package com.amp.user.model;
+package com.amp.user.model.bo;
 
 import lombok.Data;
 

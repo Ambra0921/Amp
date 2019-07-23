@@ -1,7 +1,9 @@
 package com.amp.user.dao;
 
-import com.amp.user.model.UserInfo;
+import com.amp.user.model.bo.UserInfo;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * 用户 Dao
@@ -17,4 +19,24 @@ public interface UserDao {
      * @return
      */
     long saveUserInfo(UserInfo userInfo);
+
+
+    /**
+     * 查询用户信息
+     */
+    List<UserInfo> getUserInfo(UserInfo userInfo);
+
+    /**
+     * 删除用户信息
+     * @param userInfo
+     * @return
+     */
+    boolean delUserInfo(UserInfo userInfo);
+
+    /**
+     * 查询用户列表
+     * @param userInfo
+     * @return
+     */
+    List<UserInfo> queryUsers(UserInfo userInfo);
 }

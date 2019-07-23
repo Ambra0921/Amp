@@ -42,3 +42,10 @@ pagehelper:
   supportMethodsArguments: true
   params: count=countSql
   returnPageInfo: check
+
+
+shiro:
+  loginUrl: /user/login
+  successUrl: /main
+  unauthorizedUrl: /nopermission
+#shiro
