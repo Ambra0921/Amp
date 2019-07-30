@@ -37,6 +37,8 @@ const user = {
     Login ({ commit }, userInfo) {
       return new Promise((resolve, reject) => {
         login(userInfo).then(response => {
+          debugger
+          console.log(response)
           const result = response.result
           result.role = "admin";
           result.token = "2232323232";

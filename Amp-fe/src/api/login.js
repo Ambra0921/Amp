@@ -1,5 +1,6 @@
 import api from './index'
 import { axios } from '@/utils/request'
+import qs from 'qs';
 
 /**
  * login func
@@ -14,9 +15,12 @@ import { axios } from '@/utils/request'
  */
 export function login (parameter) {
   return axios({
-    url: '/user/login',
+    url: '/login',
     method: 'post',
-    data: parameter
+    data: qs.stringify(parameter),
+    headers:{
+      "Content-Type": "application/x-www-form-urlencoded"
+    }
   })
 }
 

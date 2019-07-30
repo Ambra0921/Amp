@@ -27,7 +27,7 @@ public class AjaxAuthenticationSuccessHandler implements AuthenticationSuccessHa
     public void onAuthenticationSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
         BaseResult baseResult = new BaseResult();
         baseResult.setCode(1);
-        baseResult.setMsg("登陆成功");
+        baseResult.setMsg("Login success!!");
 
         httpServletResponse.getWriter().write(JSONUtils.toJSONString(baseResult));
     }

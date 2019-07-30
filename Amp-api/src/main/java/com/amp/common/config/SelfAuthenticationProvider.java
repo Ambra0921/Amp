@@ -5,6 +5,7 @@ import com.amp.common.utils.Md5Util;
 import com.amp.user.model.bo.UserInfo;
 import com.amp.user.model.result.LoginResult;
 import com.amp.user.service.UserService;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -33,9 +34,11 @@ public class SelfAuthenticationProvider implements AuthenticationProvider {
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String userName = (String) authentication.getPrincipal(); // 这个获取表单输入中返回的用户名;
-        String password = (String) authentication.getCredentials(); // 这个是表单中输入的密码；
+        String encodePwd  = (String) authentication.getCredentials(); // 这个是表单中输入的密码；
 
-        String encodePwd = Md5Util.StringInMd5(password);
+        if(StringUtils.isEmpty(userName)|| StringUtils.isEmpty(encodePwd)){
+            throw new BaseException("用户名密码不能为空！");
+        }
 
         UserDetails loginResult = (LoginResult) userService.loadUserByUsername(userName);
 
@@ -47,7 +50,7 @@ public class SelfAuthenticationProvider implements AuthenticationProvider {
             throw new BaseException("用户名密码不正确，请重新登陆！");
         }
 
-        return new UsernamePasswordAuthenticationToken(userName, password,loginResult.getAuthorities());
+        return new UsernamePasswordAuthenticationToken(userName, encodePwd,loginResult.getAuthorities());
     }
 
     @Override
