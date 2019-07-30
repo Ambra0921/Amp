@@ -15,10 +15,10 @@
     </sql>
 
 
-    <select id="getUserInfo" parameterType="com.amp.user.model.bo.UserInf" resultMap="BaseResultMap">
+    <select id="getUserInfo" parameterType="com.amp.user.model.bo.UserInfo" resultMap="BaseResultMap">
         SELECT
-        <include refid="BaseColumnList" />
-        FROM user
+        <include refid="baseColumn" />
+        FROM t_user
         <where>
             <if test="userName != null">
                 AND user_name = #{userName,jdbcType=VARCHAR}
@@ -37,7 +37,7 @@
         INSERT  INTO t_user(
         <include refid="baseColumn"/>
         )
-        values (#{userName,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},#{creator,jdbcType=BIGINT},#{createTime,jdbcType=datetime})
+        values (#{userName,jdbcType=VARCHAR},#{password,jdbcType=VARCHAR},#{creator,jdbcType=BIGINT},#{createTime,jdbcType=DATE})
     </insert>
 
 

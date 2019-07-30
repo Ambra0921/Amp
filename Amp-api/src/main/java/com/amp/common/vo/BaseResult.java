@@ -15,19 +15,40 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class BaseResult<T> implements Serializable {
+public class BaseResult implements Serializable {
 
     private int code;
 
     private String msg;
 
-    private T result;
+    private Object result;
 
-    public BaseResult successResult(T result){
-        return new BaseResult<>(200,null,result);
+    /**
+     * 成功带返回值的结果
+     * @param result
+     * @return
+     */
+    public static BaseResult successResult(Object result){
+        return new BaseResult(200,null,result);
     }
 
+    /**
+     * 失败
+     * @param code
+     * @param msg
+     * @return
+     */
     public static BaseResult fail(int code,String msg){
-        return new BaseResult<>(200,null,null);
+        return new BaseResult(code,msg,null);
+    }
+
+    /**
+     * 成功带消息不带返回值的结果
+     * @param code
+     * @param msg
+     * @return
+     */
+    public static BaseResult sucess(int code,String msg){
+        return new BaseResult(code,msg,null);
     }
 }

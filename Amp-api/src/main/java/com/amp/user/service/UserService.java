@@ -17,4 +17,11 @@ public interface UserService {
      * @return
      */
     void saveUserInfo(UserInfo userInfo);
+
+    /**
+     * 获取用户信息
+     * @param userInfo
+     * @return
+     */
+    UserInfo getUserInfo(UserInfo userInfo);
 }

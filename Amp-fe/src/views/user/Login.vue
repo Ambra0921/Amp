@@ -19,7 +19,7 @@
               type="text"
               placeholder="账户: admin"
               v-decorator="[
-                'username',
+                'userName',
                 {rules: [{ required: true, message: '请输入帐户名或邮箱地址' }, { validator: handleUsernameOrEmail }], validateTrigger: 'change'}
               ]"
             >
@@ -181,14 +181,14 @@ export default {
 
       state.loginBtn = true
 
-      const validateFieldsKey = customActiveKey === 'tab1' ? ['username', 'password'] : ['mobile', 'captcha']
+      const validateFieldsKey = customActiveKey === 'tab1' ? ['userName', 'password'] : ['mobile', 'captcha']
 
       validateFields(validateFieldsKey, { force: true }, (err, values) => {
         if (!err) {
           console.log('login form', values)
           const loginParams = { ...values }
-          delete loginParams.username
-          loginParams[!state.loginType ? 'email' : 'username'] = values.username
+          delete loginParams.userName
+          loginParams[!state.loginType ? 'email' : 'userName'] = values.userName
           loginParams.password = md5(values.password)
           Login(loginParams)
             .then((res) => this.loginSuccess(res))
@@ -248,6 +248,14 @@ export default {
     },
     loginSuccess (res) {
       console.log(res)
+      if(res.code!=200){
+        this.$notification['error']({
+          message: '错误',
+          description: res.msg || '请求出现错误，请稍后再试',
+          duration: 4
+        })
+        return ;
+      }
       this.$router.push({ name: 'dashboard' })
       // 延迟 1 秒显示欢迎信息
       setTimeout(() => {
