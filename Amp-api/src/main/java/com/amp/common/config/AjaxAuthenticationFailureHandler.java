@@ -24,10 +24,11 @@ public class AjaxAuthenticationFailureHandler implements AuthenticationFailureHa
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AuthenticationException e) throws IOException, ServletException {
+        httpServletResponse.setCharacterEncoding("UTF-8");
+        httpServletResponse.setContentType("application/json;charset=utf-8");
         BaseResult baseResult = new BaseResult();
         baseResult.setCode(6);
         baseResult.setMsg("登陆失败");
-
         httpServletResponse.getWriter().write(JSONUtils.toJSONString(baseResult));
     }
 }

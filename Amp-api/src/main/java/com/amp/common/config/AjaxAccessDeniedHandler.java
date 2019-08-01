@@ -25,10 +25,11 @@ public class AjaxAccessDeniedHandler implements AccessDeniedHandler {
 
     @Override
     public void handle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, AccessDeniedException e) throws IOException, ServletException {
+        httpServletResponse.setCharacterEncoding("UTF-8");
+        httpServletResponse.setContentType("application/json;charset=utf-8");
         BaseResult baseResult = new BaseResult();
         baseResult.setCode(-2);
         baseResult.setMsg("需要授权");
-
         httpServletResponse.getWriter().write(JSONUtils.toJSONString(baseResult));
     }
 }

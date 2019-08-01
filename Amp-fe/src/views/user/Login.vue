@@ -247,15 +247,6 @@ export default {
       })
     },
     loginSuccess (res) {
-      console.log(res)
-      if(res.code!=200){
-        this.$notification['error']({
-          message: '错误',
-          description: res.msg || '请求出现错误，请稍后再试',
-          duration: 4
-        })
-        return ;
-      }
       this.$router.push({ name: 'dashboard' })
       // 延迟 1 秒显示欢迎信息
       setTimeout(() => {

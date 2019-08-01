@@ -22,10 +22,11 @@ public class AjaxLogoutSuccessHandler  implements LogoutSuccessHandler {
 
     @Override
     public void onLogoutSuccess(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Authentication authentication) throws IOException, ServletException {
+        httpServletResponse.setCharacterEncoding("UTF-8");
+        httpServletResponse.setContentType("application/json;charset=utf-8");
         BaseResult baseResult = new BaseResult();
         baseResult.setCode(3);
         baseResult.setMsg("退出登陆成功");
-
         httpServletResponse.getWriter().write(JSONUtils.toJSONString(baseResult));
     }
 }

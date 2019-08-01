@@ -45,6 +45,10 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        /**
+         * 同一个账号只能在一个地方登陆
+         */
+        http.sessionManagement().maximumSessions(1);
 
         http.csrf().disable()
 
@@ -66,7 +70,9 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logout()
                 .logoutSuccessHandler(logoutSuccessHandler)
                 .permitAll();
-
+        //失效session
+        http.logout().invalidateHttpSession(true);
+        http.logout().clearAuthentication(true);
         http.exceptionHandling().accessDeniedHandler(accessDeniedHandler); // 无权访问 JSON 格式的数据
 
     }

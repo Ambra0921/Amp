@@ -37,11 +37,9 @@ const user = {
     Login ({ commit }, userInfo) {
       return new Promise((resolve, reject) => {
         login(userInfo).then(response => {
-          debugger
           console.log(response)
-          const result = response.result
-          result.role = "admin";
-          result.token = "2232323232";
+          const result = response[0].result
+          console.log(result);
           Vue.ls.set(ACCESS_TOKEN, result.token, 7 * 24 * 60 * 60 * 1000)
           commit('SET_TOKEN', result.token)
           resolve(response)
