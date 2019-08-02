@@ -1,14 +1,12 @@
 package com.amp.common.utils;
 
 import com.amp.common.annotion.QueryDesc;
+import com.amp.common.annotion.QueryRuleEnum;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.google.common.collect.Lists;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
-import org.springframework.util.CollectionUtils;
 
 import java.lang.reflect.Field;
-import java.util.List;
 
 /**
  * 查询工具类
@@ -20,6 +18,13 @@ import java.util.List;
 public class QueryUtils {
 
     /**
+     * constructor
+     */
+    private QueryUtils(){
+
+    }
+
+    /**
      * 根据参数初始化QueryWrapper
      * @param searchObj
      * @param <T>
@@ -27,7 +32,7 @@ public class QueryUtils {
      */
     public static <T>QueryWrapper<T> initQueryWrapper(T searchObj){
         long start = System.currentTimeMillis();
-        QueryWrapper<T> queryWrapper = new QueryWrapper<T>();
+        QueryWrapper<T> queryWrapper = new QueryWrapper();
         //转化参数
         intallParams(searchObj,queryWrapper);
         log.debug("---查询条件构造器初始化完成,耗时:"+(System.currentTimeMillis()-start)+"毫秒----");
@@ -44,25 +49,26 @@ public class QueryUtils {
         try{
             Class<?> clazz = searchObj.getClass();
             Field[] fields = clazz.getDeclaredFields();
-            List<String> orderFields = Lists.newArrayList();
             for(Field field : fields){
 
                 QueryDesc queryDesc = field.getAnnotation(QueryDesc.class);
                 if(queryDesc!=null){
                     //预先校验
                     Object value =  field.get(searchObj);
-                    String name = field.getName();
-                    setParam(queryWrapper,queryDesc,name,value,orderFields);
+                    String filedName = queryDesc.field();
+                    if(StringUtils.isEmpty(filedName)){
+                        filedName = field.getName();
+                    }
+                    setParam(queryWrapper,queryDesc.op(),filedName,value);
 
                     if(queryDesc.isOrder()){
-
+                        if(queryDesc.asc()){
+                            queryWrapper.orderByAsc(filedName);
+                        }else{
+                            queryWrapper.orderByDesc(filedName);
+                        }
                     }
                 }
-            }
-
-            //排序
-            if(!CollectionUtils.isEmpty(orderFields)){
-
             }
         }catch (IllegalAccessException e){
             log.error("获取值失败：{}",e.getMessage(),e);
@@ -73,19 +79,15 @@ public class QueryUtils {
     /**
      * 设置参数
      * @param queryWrapper
-     * @param queryDesc
-     * @param name
+     * @param op
+     * @param filedName
      * @param value
      * @param <T>
      */
-    private static <T> void setParam(QueryWrapper<T> queryWrapper, QueryDesc queryDesc, String name,Object value,List<String> orderFields) {
-        String filedName = queryDesc.field();
-        if(StringUtils.isEmpty(filedName)){
-            filedName = name;
-        }
-        orderFields.add(filedName);
-        log.error("进行sql条件构建QueryDesc:{},name:{},value:{}",JSONUtils.toJSONString(queryDesc),name,JSONUtils.toJSONString(value));
-        switch (queryDesc.op()) {
+    private static <T> void setParam(QueryWrapper<T> queryWrapper, QueryRuleEnum op, String filedName, Object value) {
+
+        log.error("进行sql条件构建:op:{},name:{},value:{}",JSONUtils.toJSONString(op),filedName,JSONUtils.toJSONString(value));
+        switch (op) {
             case GT:
                 queryWrapper.gt(filedName, value);
                 break;

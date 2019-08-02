@@ -41,5 +41,5 @@ public @interface QueryDesc {
      * 排序
      * @return
      */
-    int order() default 0;
+    boolean asc() default true;
 }
