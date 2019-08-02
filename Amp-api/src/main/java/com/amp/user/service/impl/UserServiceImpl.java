@@ -6,6 +6,7 @@ import com.amp.common.utils.Md5Util;
 import com.amp.user.dao.UserDao;
 import com.amp.user.model.bo.UserInfo;
 import com.amp.user.service.UserService;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ import java.util.List;
  **/
 @Service
 @Slf4j
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl extends ServiceImpl<UserDao,UserInfo> implements UserService {
 
     @Autowired
     private UserDao userDao;

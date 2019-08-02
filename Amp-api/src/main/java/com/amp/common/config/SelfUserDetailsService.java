@@ -1,6 +1,5 @@
 package com.amp.common.config;
 
-import com.amp.common.exception.BaseException;
 import com.amp.user.model.bo.UserInfo;
 import com.amp.user.model.result.LoginResult;
 import com.amp.user.service.UserService;

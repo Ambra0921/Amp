@@ -71,8 +71,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessHandler(logoutSuccessHandler)
                 .permitAll();
         //失效session
-        http.logout().invalidateHttpSession(true);
-        http.logout().clearAuthentication(true);
+        http.logout().invalidateHttpSession(true).clearAuthentication(true).deleteCookies("JSESSIONID");
         http.exceptionHandling().accessDeniedHandler(accessDeniedHandler); // 无权访问 JSON 格式的数据
 
     }

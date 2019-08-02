@@ -1,6 +1,7 @@
 package com.amp.user.service;
 
 import com.amp.user.model.bo.UserInfo;
+import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  *
@@ -9,7 +10,7 @@ import com.amp.user.model.bo.UserInfo;
  * @date 2019/7/19
  */
 
-public interface UserService {
+public interface UserService extends IService<UserInfo> {
 
     /**
      * 保存用户

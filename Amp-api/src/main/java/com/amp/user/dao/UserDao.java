@@ -1,6 +1,7 @@
 package com.amp.user.dao;
 
 import com.amp.user.model.bo.UserInfo;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.List;
  * @date 2019/7/19 15:23
  **/
 @Repository
-public interface UserDao {
+public interface UserDao  extends BaseMapper<UserInfo> {
 
     /**
      * 保存用户
