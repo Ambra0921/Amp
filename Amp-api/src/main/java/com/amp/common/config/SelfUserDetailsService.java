@@ -1,5 +1,6 @@
 package com.amp.common.config;
 
+import com.amp.common.utils.QueryUtils;
 import com.amp.user.model.bo.UserInfo;
 import com.amp.user.model.result.LoginResult;
 import com.amp.user.service.UserService;
@@ -33,7 +34,7 @@ public class SelfUserDetailsService implements UserDetailsService {
         UserInfo params = new UserInfo();
         params.setUserName(username);
 
-        UserInfo user = userService.getUserInfo(params);
+        UserInfo user = userService.getOne(QueryUtils.initQueryWrapper(params));
 
         if(user == null){
             return null;

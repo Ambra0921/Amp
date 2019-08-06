@@ -41,7 +41,6 @@ public class SelfAuthenticationProvider implements AuthenticationProvider {
         }
 
         UserDetails loginResult = (LoginResult) userService.loadUserByUsername(userName);
-
         if(loginResult == null){
             throw new BaseException("当前用户不存在，请重新登陆！");
         }
@@ -50,11 +49,13 @@ public class SelfAuthenticationProvider implements AuthenticationProvider {
             throw new BaseException("用户名密码不正确，请重新登陆！");
         }
 
-        return new UsernamePasswordAuthenticationToken(userName, encodePwd,loginResult.getAuthorities());
+        return new UsernamePasswordAuthenticationToken(loginResult, encodePwd,loginResult.getAuthorities());
     }
 
     @Override
     public boolean supports(Class<?> aClass) {
         return true;
     }
+
+
 }

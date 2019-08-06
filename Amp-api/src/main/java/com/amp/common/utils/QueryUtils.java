@@ -52,21 +52,33 @@ public class QueryUtils {
             for(Field field : fields){
 
                 QueryDesc queryDesc = field.getAnnotation(QueryDesc.class);
-                if(queryDesc!=null){
-                    //预先校验
-                    Object value =  field.get(searchObj);
-                    String filedName = queryDesc.field();
-                    if(StringUtils.isEmpty(filedName)){
-                        filedName = field.getName();
-                    }
-                    setParam(queryWrapper,queryDesc.op(),filedName,value);
+                if(queryDesc==null){
+                    continue;
+                }
 
-                    if(queryDesc.isOrder()){
-                        if(queryDesc.asc()){
-                            queryWrapper.orderByAsc(filedName);
-                        }else{
-                            queryWrapper.orderByDesc(filedName);
-                        }
+                //设置允许访问
+                field.setAccessible(true);
+                //获取字段值
+                Object value =  field.get(searchObj);
+                //没有设置值跳过
+                if(value == null){
+                    continue;
+                }
+                //对应数据库表字段
+                String filedName = queryDesc.field();
+                if(StringUtils.isEmpty(filedName)){
+                    //如果为空，采用本身字段名称作为查询字段
+                    filedName = field.getName();
+                }
+
+                //设置查询条件
+                setParam(queryWrapper,queryDesc.op(),filedName,value);
+
+                if(queryDesc.isOrder()){
+                    if(queryDesc.asc()){
+                        queryWrapper.orderByAsc(filedName);
+                    }else{
+                        queryWrapper.orderByDesc(filedName);
                     }
                 }
             }
@@ -86,7 +98,7 @@ public class QueryUtils {
      */
     private static <T> void setParam(QueryWrapper<T> queryWrapper, QueryRuleEnum op, String filedName, Object value) {
 
-        log.error("进行sql条件构建:op:{},name:{},value:{}",JSONUtils.toJSONString(op),filedName,JSONUtils.toJSONString(value));
+        log.error("进行sql条件构建:op:{},name:{},value:{}",JSONUtils.toJSONString(op),filedName,value);
         switch (op) {
             case GT:
                 queryWrapper.gt(filedName, value);

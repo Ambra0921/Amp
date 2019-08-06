@@ -17,7 +17,6 @@ import java.io.Serializable;
 public class LoginParam implements Serializable {
 
     @NotNull(message = "用户名不能为空")
-    @QueryDesc(field = "user_name",op = QueryRuleEnum.EQ)
     private String userName;
 
     @NotNull(message = "登陆密码不能为空")

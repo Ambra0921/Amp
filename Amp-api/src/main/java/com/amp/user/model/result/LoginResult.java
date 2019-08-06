@@ -14,6 +14,8 @@ import java.util.Set;
  * @date 2019/7/30 9:39
  **/
 public class LoginResult implements UserDetails, Serializable {
+    private static final long serialVersionUID = 8988358851571806342L;
+
     /**
      * 用户名
      */
@@ -22,6 +24,16 @@ public class LoginResult implements UserDetails, Serializable {
      * 密码
      */
     private String password;
+
+    /**
+     * id
+     */
+    private Long id;
+
+    /**
+     * 昵称
+     */
+    private String nickName;
 
     /**
      * 权限
@@ -73,5 +85,21 @@ public class LoginResult implements UserDetails, Serializable {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 }

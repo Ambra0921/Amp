@@ -36,6 +36,7 @@ public class AjaxAuthenticationSuccessHandler implements AuthenticationSuccessHa
         result.put("role",authentication.getAuthorities().iterator().next().getAuthority());
         result.put("token",httpServletRequest.getSession().getId());
         baseResult.setResult(result);
+
         httpServletResponse.getWriter().write(JSONUtils.toJSONString(baseResult));
     }
 }
