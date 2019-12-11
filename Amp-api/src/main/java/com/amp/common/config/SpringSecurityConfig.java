@@ -56,7 +56,6 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .authorizeRequests()
-
                 .anyRequest()
                 .authenticated()// 其他 url 需要身份认证
 

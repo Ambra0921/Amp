@@ -1,27 +1,25 @@
 package com.amp.user.controller;
 
 import com.amp.common.utils.ExceptionUtil;
-import com.amp.common.utils.Md5Util;
 import com.amp.common.utils.QueryUtils;
 import com.amp.common.utils.UserUtil;
 import com.amp.common.vo.BaseResult;
 import com.amp.user.model.bo.UserInfo;
 import com.amp.user.model.dto.ChangePasswordParam;
-import com.amp.user.model.dto.LoginParam;
 import com.amp.user.model.dto.SaveUserParam;
 import com.amp.user.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.constraints.NotNull;
-import java.security.Principal;
 
 /**
  *
