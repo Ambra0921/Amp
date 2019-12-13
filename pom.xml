@@ -7,14 +7,19 @@
     <groupId>com.czy</groupId>
     <artifactId>Amp</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0.0-SNAPSHOT</version>
     <modules>
         <module>Amp-api</module>
-        <module>Amp-eureka-server</module>
+        <module>amp-eureka-server</module>
+        <module>amp-goods</module>
+        <module>amp-order</module>
     </modules>
 
     <properties>
         <mybatis.plus.version>3.1.2</mybatis.plus.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <java.version>1.8</java.version>
     </properties>
 
     <parent>
@@ -32,7 +37,18 @@
                 <artifactId>mybatis-plus-boot-starter</artifactId>
                 <version>${mybatis.plus.version}</version>
             </dependency>
+            <!--与spring-boot-starter-parent的作用一样，
+            不同的是spring-cloud-dependencies是对cloud的依赖管理。
+            如：spring-cloud-starter-config、spring-cloud-starter-netflix-eureka-server-->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>Finchley.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
         </dependencies>
+
     </dependencyManagement>
 
 
@@ -55,4 +71,12 @@
             <classifier>jdk15</classifier>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>

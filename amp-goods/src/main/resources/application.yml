@@ -1,0 +1,10 @@
+server:
+  port: 8078
+spring:
+  application:
+    name: amp-goods
+eureka:
+  client:
+    register-with-eureka: true
+    service-url:
+      defaultZone: http://root:root@127.0.0.1:8761/eureka
