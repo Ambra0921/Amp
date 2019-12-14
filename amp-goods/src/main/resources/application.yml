@@ -7,4 +7,4 @@ eureka:
   client:
     register-with-eureka: true
     service-url:
-      defaultZone: http://root:root@127.0.0.1:8761/eureka
+      defaultZone: http://root:root@serviceCenter:8761/eureka,http://root:root@serviceCenter2:8761/eureka

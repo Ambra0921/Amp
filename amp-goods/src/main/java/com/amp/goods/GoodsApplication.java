@@ -15,6 +15,7 @@ import org.springframework.web.client.RestTemplate;
  **/
 @SpringBootApplication
 @EnableEurekaClient
+
 public class GoodsApplication {
 
     @Bean

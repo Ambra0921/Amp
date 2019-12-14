@@ -1,0 +1,22 @@
+spring:
+  application:
+    name: amp-eureka-server
+    #安全检查配置
+  security:
+    user:
+      name: root
+      password: root
+server:
+  port: 8761
+  peer-node-read-timeout-ms: 1000
+
+eureka:
+  instance:
+    hostname: serviceCenter
+    # 配置实例编号
+    instance-id: ${eureka.instance.hostname}:${server.port}:@project.version@
+  client:
+    service-url:
+      #开启权限验证后Eureka地址为 用户名：密码@地址：端口号，如未开启权限验证则直接使用 地址：端口号
+      defaultZone: http://root:root@serviceCenter2:8762/eureka/
+
