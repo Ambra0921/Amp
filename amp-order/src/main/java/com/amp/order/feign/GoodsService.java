@@ -3,7 +3,6 @@ package com.amp.order.feign;
 import com.amp.config.FeignConfiguration;
 import com.amp.order.entity.vo.GoodsVo;
 import com.amp.order.feign.factory.GoodsFallbackFactory;
-import com.amp.order.feign.fallback.GoodsFallback;
 import feign.Param;
 import feign.RequestLine;
 import org.springframework.cloud.openfeign.FeignClient;
