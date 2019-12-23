@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: amp-zuul
+eureka:
+  client:
+    service-url:
+      defaultZone: http://root:root@serviceCenter:8761/eureka,http://root:root@serviceCenter2:8762/eureka
+    register-with-eureka: true
+server:
+  port: 8082
+zuul:
+
+  routes:
+    amp-goods: /goods/**
+    amp-order:
+      path: /orders/**
+      serviceId: amp-order
+amp-order:
+  ribbon:
+    listOfServers: http://localhost:8081/

@@ -2,12 +2,17 @@ server:
   port: 8081
 spring:
   application:
-    name: apm-order
+    name: amp-order
 eureka:
   client:
     register-with-eureka: true
     service-url:
-      defaultZone: http://root:root@serviceCenter:8761/eureka,http://root:root@serviceCenter2:8761/eureka
+      defaultZone: http://root:root@serviceCenter:8761/eureka,http://root:root@serviceCenter2:8762/eureka
 feign:
   hystrix:
     enabled: true
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
